@@ -3,25 +3,59 @@ require 'fileutils'
 
 class DjangoGenerator
 
-	def initialize(project_name,location='/Users/mzakany/Desktop')
+	attr_reader :base
+
+	def initialize(project_name, bootstrap_template=nil, location='/Users/mzakany/Desktop')
 		scrubbed_project_name = project_name.gsub('-','_')
 		@project_name = scrubbed_project_name
 		@location = location
-		@base = "#{location}/#{@project_name}/#{@project_name}/static/templates/layouts"
+		if bootstrap_template.nil?
+			@bootstrap_template_project_dir = nil
+		else
+			if File.directory?(bootstrap_template)
+				@bootstrap_template_project_dir = bootstrap_template
+			else
+				@bootstrap_template_project_dir = "#{@location}/#{bootstrap_template}"
+			end
+		end
+		@base = "#{@location}/#{@project_name}/static/templates/layouts"
 		@virtualenv_folder = "#{location}/#{@project_name}"
 		@django_build_directory = File.absolute_path('files')
 		@full_settings_location = "#{location}/#{@project_name}/#{@project_name}/#{@project_name}"
 		@private_folder = "/private/var/folders/sn/rfwbfk455x9fvl0bldkbj8x40000gn/T/pip_build_mzakany"
+		@static_django_location = "#{@virtualenv_folder}/static/static"
 	end
 
 	
 	def setup
 		create_virtualenv
 		create_structure
+		copy_over_boostrap_files unless @bootstrap_template_project_dir.nil?
 	end
 
+	
 
 	private
+
+	def copy_over_boostrap_files
+		files = []
+		Dir.foreach(@bootstrap_template_project_dir) do |line|
+			if line == 'img' or line == 'images'
+				FileUtils.cp_r("#{@bootstrap_template_project_dir}/#{line}", "#{@static_django_location}")
+			elsif line == 'js' or line == 'javascripts'
+				FileUtils.cp_r("#{@bootstrap_template_project_dir}/#{line}", "#{@static_django_location}")
+			elsif line == 'css'
+				FileUtils.cp_r("#{@bootstrap_template_project_dir}/#{line}", "#{@static_django_location}")
+			elsif line == 'fonts'
+				FileUtils.cp_r("#{@bootstrap_template_project_dir}/#{line}", "#{@static_django_location}")
+			elsif line == 'index.html'
+				FileUtils.cp("#{@bootstrap_template_project_dir}/#{line}", "#{@virtualenv_folder}/static/templates/layouts/base.html")
+			end
+
+			
+		end
+
+	end
 
 	def create_virtualenv
 		if virtualenv_exists == false

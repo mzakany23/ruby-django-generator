@@ -3,16 +3,20 @@ require 'fileutils'
 
 class HtmlTagParser
 	
-	attr_reader :file_location, :html_file
+	attr_reader :html_file, :file_location	
 	attr_accessor :formatted_output_string
 	
 	def initialize(html_file,file_location=FileUtils.pwd)
 		@html_file = html_file
-		@file_location = file_location
+		@file_location = file_location	
 	end
 
 	def replace_images
-		return_formatted_string_html_page_by_tag_type('img').to_html
+		if File.exist?(@html_file)
+			return_formatted_string_html_page_by_tag_type('img').to_html
+		else
+			raise 'There is nothing to parse'
+		end
 	end
 
 
@@ -79,7 +83,9 @@ class HtmlTagParser
 		File.open('file.html','a') {|line| line.write(@formatted_output_string)}
 	end
 
-end
+	end
+
+
 
 
 # html_file = "../static/templates/layouts/base.html"
