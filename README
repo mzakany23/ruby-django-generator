@@ -1,1 +1,3 @@
-README
+This is a couple scripts that will create a django project on desktop with a virtualenv and folder structure. 
+
+Also a script that can turn a bootstrap template into a django project with all the relative links working.
