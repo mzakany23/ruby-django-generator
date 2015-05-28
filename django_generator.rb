@@ -1,7 +1,7 @@
 require 'optparse'
 require 'fileutils'
 
-class DjangoProject
+class DjangoGenerator
 
 	def initialize(project_name,location='/Users/mzakany/Desktop')
 		@project_name = project_name

@@ -6,7 +6,7 @@ describe DjangoGenerator do
 	end
 
 
-	it 'doesnt delete whole desktop' do 
+	it 'clean private folder' do 
 		@project.clean_requirement_folder_so_can_reinstall
 	end
 end
