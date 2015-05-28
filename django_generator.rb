@@ -4,20 +4,24 @@ require 'fileutils'
 class DjangoGenerator
 
 	def initialize(project_name,location='/Users/mzakany/Desktop')
-		@project_name = project_name
+		scrubbed_project_name = project_name.gsub('-','_')
+		@project_name = scrubbed_project_name
 		@location = location
-		@base = "#{location}/#{project_name}/#{project_name}/static/templates/layouts"
-		@virtualenv_folder = "#{location}/#{project_name}"
-		@django_build_directory = File.absolute_path('../../files')
-		@full_settings_location = "#{location}/#{project_name}/#{project_name}/#{project_name}"
+		@base = "#{location}/#{@project_name}/#{@project_name}/static/templates/layouts"
+		@virtualenv_folder = "#{location}/#{@project_name}"
+		@django_build_directory = File.absolute_path('files')
+		@full_settings_location = "#{location}/#{@project_name}/#{@project_name}/#{@project_name}"
 		@private_folder = "/private/var/folders/sn/rfwbfk455x9fvl0bldkbj8x40000gn/T/pip_build_mzakany"
 	end
 
 	
-	def set_up
+	def setup
 		create_virtualenv
 		create_structure
 	end
+
+
+	private
 
 	def create_virtualenv
 		if virtualenv_exists == false
@@ -57,10 +61,8 @@ class DjangoGenerator
 		index_html = "#{@django_build_directory}/index.html"
 		FileUtils.cp(base_html,"#{@virtualenv_folder}/static/templates/layouts/base.html")
 		FileUtils.cp(index_html,"#{@virtualenv_folder}/static/templates/home/index.html")
-		FileUtils.cp(settings_file,"#{@django_main_folder}../home")
 		FileUtils.cp(settings_file,django_settings)
 		FileUtils.cp(requirements_file,"#{@virtualenv_folder}")
-		FileUtils.cp(urls_file,"#{@django_main_folder}/urls.py")
 	end
 
 
@@ -92,9 +94,6 @@ class DjangoGenerator
 		clean_requirement_folder_so_can_reinstall
 		system("pip install -r #{@virtualenv_folder}/requirements.txt -t #{@virtualenv_folder}/lib/python2.7/site-packages")
 	end
-
-
-	protected
 
 	def virtualenv_exists
 		File.directory?("#{@location}/#{@project_name}")

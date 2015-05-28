@@ -15,6 +15,8 @@ describe DjangoGenerator do
 	# end
 
 	it 'build dir' do 
-		@project.set_up
+		Dir.chdir("/Users/mzakany/Desktop/ruby-django-generator/") do 
+			
+		end
 	end
 end
