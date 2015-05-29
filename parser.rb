@@ -113,11 +113,3 @@ class HtmlTagParser
 end
 
 
-
-
-# html_file = "../static/templates/layouts/base.html"
-
-# f = HtmlTagParser.new(html_file)
-
-
-# f.replace_images
