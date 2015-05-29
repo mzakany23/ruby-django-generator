@@ -3,6 +3,12 @@ require_relative '../../parser'
 describe HtmlTagParser do 
 	before do 
 		@string_file = "/a>\n                </div>\n                <div class=\"col-lg-4 col-sm-6\">\n                    <a href=\"#\" class=\"portfolio-box\">\n                        <img src=\"img/portfolio/4.jpg\" class=\"img-responsive\" alt=\"\">\n                        <div class=\"portfolio-box-caption\">\n                            <div class=\"portfolio-box-caption-content\">\n                                <div class=\"project-category text-faded\">\n                                    Category\n                                </div>\n                                <div class=\"project-name\">\n                                    Project Name\n                                </div>\n                            </div>\n                        </div>\n                    </a>\n                </div>\n                <div class=\"col-lg-4 col-sm-6\">\n                    <a href=\"#\" class=\"portfolio-box\">\n                        <img src=\"img/portfolio/5.jpg\" class=\"img-responsive\" alt=\"\">\n                        <div class=\"portfolio-box-caption\">\n                            <div class=\"portfolio-box-caption-content\">\n                                <div class=\"project-category text-faded\">\n                                    Category\n                                </div>\n                                <div class=\"project-name\">\n                                    Project Name\n                                </div>\n                            </div>\n                        </div>\n                    </a>\n                </div>\n                <div class=\"col-lg-4 col-sm-6\">\n                    <a href=\"#\" class=\"portfolio-box\">\n                        <img src=\"img/portfolio/6.jpg\" class=\"img-responsive\" alt=\"\">\n                        <div class=\"portfolio-box-caption\">\n                            <div class=\"portfolio-box-caption-content\">\n                                <div class=\"project-category text-faded\">\n                                    Category\n                                </div>\n                                <div class=\"project-name\">\n                                    Project Name\n                                </div>\n                            </div>\n                        </div>\n                    </a>\n                </div>\n            </div>\n        </div>\n    </section>\n\n    <aside class=\"bg-dark\">\n        <div class=\"container text-center\">\n            <div class=\"call-to-action\">\n                <h2>Free Download at Start Bootstrap!</h2>\n                <a href=\"#\" class=\"btn btn-default btn-xl wow tada\">Download Now!</a>\n            </div>\n        </div>\n    </aside>\n\n    <section id=\"contact\">\n        <div class=\"container\">\n            <div class=\"row\">\n                <div class=\"col-lg-8 col-lg-offset-2 text-center\">\n    "
+		@file = 'test_html/file.html'
+		@parser = HtmlTagParser.new(@file)
+	end
+
+	it 'can look for any tag' do 
+		@parser.return_formatted_string_html_page_by_tag_type('img').to_html
 	end
 
 	# it 'finds returns a formatted html in string' do 
@@ -40,18 +46,18 @@ describe HtmlTagParser do
 	# 	end	
 	# end
 
-	it 'deletes a portion of the string' do 
-		output = "hey man"
-		print output
-		for i in 0..output.length-1
-			if output[i] == 'h'
-				output[i..i+4] = ''
-			end
-		end
+	# it 'deletes a portion of the string' do 
+	# 	output = "hey man"
+	# 	print output
+	# 	for i in 0..output.length-1
+	# 		if output[i] == 'h'
+	# 			output[i..i+4] = ''
+	# 		end
+	# 	end
 
 
-		print "\n" + output
+	# 	print "\n" + output
 
 
-	end
+	# end
 end
