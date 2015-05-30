@@ -101,6 +101,8 @@ class DjangoGenerator
 		FileUtils.cp(index_html,"#{@virtualenv_folder}/static/templates/home/index.html")
 		FileUtils.cp(settings_file,django_settings)
 		FileUtils.cp(requirements_file,"#{@virtualenv_folder}")
+		# FileUtils.cp(urls_file,"#{@django_main_folder}/urls.py")
+		FileUtils.cp(home_view_file,"#{@virtualenv_folder}/#{@project_name}/home/views.py")
 	end
 
 
