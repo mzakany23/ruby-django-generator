@@ -7,8 +7,8 @@ describe HtmlTagParser do
 		@parser = HtmlTagParser.new(@file)
 	end
 
-	it 'can look for any tag' do 
-		@parser.return_formatted_string
+	it 'replaces all tags with django tags and creates output file' do 
+		@parser.replace_with_django_tags.to_html
 	end
 
 	# it 'finds returns a formatted html in string' do 
