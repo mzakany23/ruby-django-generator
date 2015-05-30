@@ -15,7 +15,9 @@ project = DjangoGenerator.new('django_project_title','bootstrap_template_dir_loc
 project.set_up
 
 # replace bootstrap index.html page with django tags
+# i.e. save the new index.html file into django_proj/static/templates/layouts/base.html
 parser = HtmlTagParser.new(bootstrap_index_page_location,'where_to_save/index.html')
 parser.replace_index_page_with_django_tags.to_html
+
 
 ```
