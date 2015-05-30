@@ -8,6 +8,7 @@ Once the project is made there's a command that will take a bootstrap template a
 ```ruby
 
 require 'parser'
+require 'django_generator'
 
 # create django project structure on desktop
 project = DjangoGenerator.new('django_project_title','bootstrap_template_dir_location')
