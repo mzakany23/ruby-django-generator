@@ -5,7 +5,7 @@ This is a project of some scripts that automate making a base django project ins
 Once the project is made there's a command that will take a bootstrap template and turn it into the django project that was created.
 
 
-'''ruby
+```ruby
 
 require 'parser'
 
@@ -17,4 +17,4 @@ project.set_up
 parser = HtmlTagParser.new(bootstrap_index_page_location,'where_to_save/index.html')
 parser.replace_index_page_with_django_tags.to_html
 
-'''
+```
