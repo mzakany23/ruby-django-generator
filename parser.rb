@@ -1,5 +1,5 @@
 require 'fileutils'
-
+require 'date'
 
 class HtmlTagParser 
 	
@@ -8,7 +8,16 @@ class HtmlTagParser
 	
 	def initialize(html_file,file_location=FileUtils.pwd)
 		@html_file = html_file
-		@file_location = file_location	
+		if File.basename(file_location).include?('.html')
+			if File.exist?(file_location)
+				@file_location = "#{file_location}#{Date.today}"
+			else
+				@file_location = file_location
+			end
+			
+		else
+			@file_location = 'index.html'
+		end
 	end
 
 	def replace_with_django_tags
@@ -20,9 +29,9 @@ class HtmlTagParser
 		return_formatted_string(tags_to_look_for)
 	end
 
-	
-	
-	
+	def to_html
+		File.open(@file_location,'w') {|line| line.write(@formatted_output_string)}
+	end
 
 
 
@@ -94,9 +103,6 @@ class HtmlTagParser
 		return new_formatted_line
 	end
 
-	def to_html
-		File.open('file.html','w') {|line| line.write(@formatted_output_string)}
-	end
 
 	def generate_output_string
 		output_string = ""
