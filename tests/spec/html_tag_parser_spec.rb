@@ -7,7 +7,7 @@ describe HtmlTagParser do
 		@parser = HtmlTagParser.new(@file,'test_html')
 	end
 
-	it 'replaces all tags with django tags and creates output file' do 
-		@parser.replace_with_django_tags.to_html
+	it 'replaces all index page with django tags and creates output file' do 
+		@parser.replace_index_page_with_django_tags.to_html
 	end
 end
