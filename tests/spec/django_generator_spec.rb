@@ -14,9 +14,7 @@ describe DjangoGenerator do
 	# 	@project.create_virtualenv
 	# end
 
-	it 'build dir' do 
-		Dir.chdir("/Users/mzakany/Desktop/ruby-django-generator/") do 
-			
-		end
+	it 'build build without bootstrap' do 
+		@project.setup
 	end
 end

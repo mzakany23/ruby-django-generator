@@ -11,7 +11,7 @@ urlpatterns = patterns('',
 )
 
 # home
-urlpatterns +=('home.views',
+urlpatterns += patterns('home.views',
 	url(r'^$', 'home',name='home'),
 )
 
