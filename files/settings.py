@@ -49,10 +49,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'borroh.urls'
-
-WSGI_APPLICATION = 'borroh.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -93,4 +89,3 @@ TEMPLATE_DIRS = (
 STATICFILES_DIRS = (
     os.path.join(os.path.dirname(BASE_DIR),'static','static'),
 )
-

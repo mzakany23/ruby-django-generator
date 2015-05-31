@@ -1,5 +1,6 @@
 require 'optparse'
 require 'fileutils'
+require_relative 'parser'
 
 class DjangoGenerator
 
@@ -89,8 +90,11 @@ class DjangoGenerator
 	end
 	
 	def copy_django_files_over
+		lookup = "SESSION_COOKIE_AGE = 14000"
+		arr = ["ROOT_URLCONF = 'new_django_project.urls' ", "WSGI_APPLICATION = 'new_django_project.wsgi.application'"]
+
 		django_main_folder = "#{@virtualenv_folder}/#{@project_name}/#{@project_name}"
-		settings_file = "#{@django_build_directory}/settings.py"
+		# settings_file = "#{@django_build_directory}/settings.py"
 		django_settings = "#{django_main_folder}/settings.py"
 		requirements_file = "#{@django_build_directory}/requirements.txt"
 		urls_file = "#{@django_build_directory}/urls.py"
@@ -99,12 +103,15 @@ class DjangoGenerator
 		index_html = "#{@django_build_directory}/index.html"
 		FileUtils.cp(base_html,"#{@virtualenv_folder}/static/templates/layouts/base.html")
 		FileUtils.cp(index_html,"#{@virtualenv_folder}/static/templates/home/index.html")
-		FileUtils.cp(settings_file,django_settings)
+		parser = HtmlTagParser.new("#{@django_build_directory}/settings.py")
+		parser.parse_file_and_append_some_lines_and_create_file(lookup,arr,"#{django_main_folder}/settings.py")
+		# FileUtils.cp(settings_file,django_settings)
 		FileUtils.cp(requirements_file,"#{@virtualenv_folder}")
 		# FileUtils.cp(urls_file,"#{@django_main_folder}/urls.py")
 		FileUtils.cp(home_view_file,"#{@virtualenv_folder}/#{@project_name}/home/views.py")
 	end
 
+	
 
 	def clean_requirement_folder_so_can_reinstall
 		directory = Dir.new("#{@private_folder}")

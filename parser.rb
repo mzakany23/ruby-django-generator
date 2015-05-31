@@ -6,7 +6,7 @@ class HtmlTagParser
 	attr_reader :html_file, :file_location, :tag
 	attr_accessor :formatted_output_string
 	
-	def initialize(html_file,file_location=FileUtils.pwd)
+	def initialize(html_file=nil,file_location=FileUtils.pwd)
 		begin
 			@html_file = html_file
 		rescue
@@ -38,17 +38,31 @@ class HtmlTagParser
 		File.open(@file_location,'w') {|line| line.write(@formatted_output_string)}
 	end
 
+	def parse_file_and_append_some_lines_and_create_file(look_for_str, add_after_arr, where_to_save)
+		output_string = generate_output_string
+		for i in 0..output_string.length-1	
+			full_word = output_string[i..i+look_for_str.length-1]
+			if full_word == look_for_str
+				add_after_arr.each {|line| output_string[look_for_str] += "\n" + "\n" + line + "\n"}
+			end
+		end
 
+
+		File.open(where_to_save,'w') do |line|
+			 line.write(output_string)
+		end
+	end
 
 
 
 	protected
 
 	
+	
 	def return_formatted_string(tags_to_look_for)
 		
 		output_string = generate_output_string
-		@formatted_output_string = ""
+		@formatted_output_string = "{% load staticfiles %}\n"
 
 		for i in 0..output_string.length-1
 			tags_to_look_for.each_pair do |short_name,tag|
@@ -96,10 +110,10 @@ class HtmlTagParser
 		
 		if short_name == :img
 			match = /(?<start><img src=)(?<middle>\w{0,4}\/\w{0,25}\/\d{0,10}\.\w{0,4})\s\w{0,9}\=(?<class>\w{0,5}.\w{0,20})(?<all_else>.{0,10})/.match(whole_line_de_stringed)
-			new_formatted_line = "#{match[:start]} " + %Q["{% static '#{match[:middle]}' %}"] + ' ' + "class='#{match[:class]}' + alt=''"
+			new_formatted_line = "#{match[:start]} " + %Q["{% static '#{match[:middle]}' %}"] + ' ' + "class='#{match[:class]}' + alt=''>"
 		elsif short_name == :css
 			match = /\<\w{0,5}.\w{0,4}.\w{0,10}.\w{0,5}\=(?<css>[^.]{0,20}\.[^\s]{0,20})/.match(whole_line_de_stringed)
-			new_formatted_line = "<link rel='stylesheet' " + %Q["{% static '#{match[:css]}' %}"] + ' ' + "type='text/css'>"
+			new_formatted_line = "<link rel='stylesheet' " + "href=" + %Q["{% static '#{match[:css]}' %}"] + ' ' + "type='text/css'>"
 		elsif short_name == :js
 			match = /\<\w{0,5}.\w{0,4}.\w{0,10}.\w{0,5}\=(?<css>[^.]{0,20}\.[^\s]{0,20})\>/.match(whole_line_de_stringed)
 			new_formatted_line = "<script src=" + %Q["{% static '#{match[:css]}' %}">] + "<"	
