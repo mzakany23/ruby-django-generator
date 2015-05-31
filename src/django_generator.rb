@@ -38,9 +38,20 @@ class DjangoGenerator
 		end
 	end
 
-	
+	def migrate
+		Dir.chdir("#{@virtualenv_folder}/#{@project_name}") do 
+			system("python manage.py migrate")
+		end
+	end
+
+	def runserver
+		Dir.chdir("#{@virtualenv_folder}/#{@project_name}") do 
+			system("python manage.py runserver")
+		end
+	end	
 
 	private
+
 
 	def copy_over_boostrap_files
 		files = []
@@ -82,16 +93,16 @@ class DjangoGenerator
 				system("mkdir db static static/media static/templates static/templates/home static/templates/layouts static/static static/static/css static/static/js static/static/img")
 				system("touch .gitignore")
 				system("git init .")
-				copy_django_files_over
 			end
 		else
 			raise "There is no virtualenv folder setup. Set that up first"
 		end
+		copy_django_files_over
 	end
 	
 	def copy_django_files_over
 		lookup = "SESSION_COOKIE_AGE = 14000"
-		arr = ["ROOT_URLCONF = 'new_django_project.urls' ", "WSGI_APPLICATION = 'new_django_project.wsgi.application'"]
+		arr = ["ROOT_URLCONF = '#{@project_name}.urls' ", "WSGI_APPLICATION = '#{@project_name}.wsgi.application'"]
 
 		django_main_folder = "#{@virtualenv_folder}/#{@project_name}/#{@project_name}"
 		# settings_file = "#{@django_build_directory}/settings.py"
@@ -105,7 +116,7 @@ class DjangoGenerator
 		FileUtils.cp(index_html,"#{@virtualenv_folder}/static/templates/home/index.html")
 		parser = HtmlTagParser.new("#{@django_build_directory}/settings.py")
 		parser.parse_file_and_append_some_lines_and_create_file(lookup,arr,"#{django_main_folder}/settings.py")
-		# FileUtils.cp(settings_file,django_settings)
+		# FileUtils.cp("#{django_main_folder}/settings.py","#{django_main_folder}/settings.py")
 		FileUtils.cp(requirements_file,"#{@virtualenv_folder}")
 		system("sudo cp #{urls_file} #{django_main_folder}/urls.py")
 		# FileUtils.cp(urls_file,"#{@django_main_folder}/urls.py")

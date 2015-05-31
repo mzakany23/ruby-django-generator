@@ -1,4 +1,4 @@
-require_relative '../../parser'
+require_relative '../../src/parser'
 
 describe HtmlTagParser do 
 	before do 
@@ -15,7 +15,11 @@ describe HtmlTagParser do
 	it 'append settings' do 
 		lookup = "SESSION_COOKIE_AGE = 14000"
 		arr = ["ROOT_URLCONF = 'new_django_project.urls' ", "WSGI_APPLICATION = 'new_django_project.wsgi.application'"]
-		@new_parser.parse_file_and_append_some_lines_and_create_file(lookup,arr,'/Users/mzakany/Desktop/settings.py')
+		# @new_parser.parse_file_and_append_some_lines_and_create_file(lookup,arr,'/Users/mzakany/Desktop/settings.py')
+	end
+
+	it 'test system' do 
+		
 	end
 end
 
