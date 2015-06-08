@@ -2,8 +2,13 @@ require_relative 'django_generator'
 require_relative 'parser'
 
 class DjangoProjectGenerator
-	def initialize(project_name,bootstrap_template_name)
-		@project = DjangoGenerator.new(project_name, bootstrap_template_name)
+	def initialize(project_name,bootstrap_template_name=nil)
+		if bootstrap_template_name.nil?
+			@project = DjangoGenerator.new(project_name)
+		else
+			@project = DjangoGenerator.new(project_name, bootstrap_template_name)
+		end
+
 		location_of_bootstrap_dir = "/Users/mzakany/Desktop/template/index.html"
 		if File.exist?(location_of_bootstrap_dir)
 			@parser = HtmlTagParser.new("/Users/mzakany/Desktop/template/index.html","/Users/mzakany/Desktop/#{project_name}/static/templates/layouts/base.html")
@@ -25,7 +30,7 @@ class DjangoProjectGenerator
 end
 
 
-DjangoProjectGenerator.new("new_project", 'template').create
+DjangoProjectGenerator.new("new_project").create
 
 
 

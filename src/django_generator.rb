@@ -31,7 +31,7 @@ class DjangoGenerator
 	def setup
 		create_virtualenv
 		create_structure
-		if File.exist?(@bootstrap_template_project_dir)
+		unless @bootstrap_template_project_dir.nil?
 			copy_over_boostrap_files 
 		else
 			p "There's no bootstrap folder to merge over on the desktop."
@@ -49,6 +49,15 @@ class DjangoGenerator
 			system("python manage.py runserver")
 		end
 	end	
+
+
+
+
+
+
+
+
+
 
 	private
 
