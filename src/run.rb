@@ -2,35 +2,37 @@ require_relative 'django_generator'
 require_relative 'parser'
 
 class DjangoProjectGenerator
-	def initialize(project_name,bootstrap_template_name=nil)
-		if bootstrap_template_name.nil?
+	def initialize(project_name, bootstrap_template_index_location=nil)
+		
+		@bootstrap_template_index_location = bootstrap_template_index_location
+
+		if bootstrap_template_index_location.nil?
 			@project = DjangoGenerator.new(project_name)
 		else
-			@project = DjangoGenerator.new(project_name, bootstrap_template_name)
+			@project = DjangoGenerator.new(project_name, bootstrap_template_index_location)
+			@parser = HtmlTagParser.new("/Users/mzakany/Desktop/#{bootstrap_template_index_location}/index.html","/Users/mzakany/Desktop/#{project_name}/static/templates/layouts/base.html")	
 		end
-
-		location_of_bootstrap_dir = "/Users/mzakany/Desktop/template/index.html"
-		if File.exist?(location_of_bootstrap_dir)
-			@parser = HtmlTagParser.new("/Users/mzakany/Desktop/template/index.html","/Users/mzakany/Desktop/#{project_name}/static/templates/layouts/base.html")
-		else 
-			@parser = nil
-		end		
-	end
+	end 
 
 	def create
 		p 'setting up project...'
 		@project.setup
-		p 'replacing index page'
-		@parser.replace_index_page_with_django_tags.to_html
-		p 'migrating database...'
-		@project.migrate
-		p 'running server...'
-		@project.runserver
+		unless @bootstrap_template_index_location.nil?
+			p 'replacing index page'
+			@parser.replace_index_page_with_django_tags.to_html
+			p 'migrating database...'
+			@project.migrate
+			p 'running server...'
+			@project.runserver
+		else
+			@project.migrate
+			@project.runserver
+		end
 	end
 end
 
 
-DjangoProjectGenerator.new("new_project").create
+DjangoProjectGenerator.new("test_project", "template").create
 
 
 

@@ -29,9 +29,12 @@ class DjangoGenerator
 
 	
 	def setup
+		p 'creating virtualenv'
 		create_virtualenv
+		p 'creating structure'
 		create_structure
 		unless @bootstrap_template_project_dir.nil?
+			p 'copying over bootstrap files'
 			copy_over_boostrap_files 
 		else
 			p "There's no bootstrap folder to merge over on the desktop."

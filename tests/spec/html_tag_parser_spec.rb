@@ -8,19 +8,19 @@ describe HtmlTagParser do
 		@new_parser = HtmlTagParser.new('../../files/settings.py','/Users/mzakany/Desktop')
 	end
 
-	# it 'replaces all index page with django tags and creates output file' do 
-	# 	@parser.replace_index_page_with_django_tags.to_html
+	it 'replaces all index page with django tags and creates output file' do 
+		@parser.replace_index_page_with_django_tags.to_html
+	end
+
+	# it 'append settings' do 
+	# 	lookup = "SESSION_COOKIE_AGE = 14000"
+	# 	arr = ["ROOT_URLCONF = 'new_django_project.urls' ", "WSGI_APPLICATION = 'new_django_project.wsgi.application'"]
+	# 	# @new_parser.parse_file_and_append_some_lines_and_create_file(lookup,arr,'/Users/mzakany/Desktop/settings.py')
 	# end
 
-	it 'append settings' do 
-		lookup = "SESSION_COOKIE_AGE = 14000"
-		arr = ["ROOT_URLCONF = 'new_django_project.urls' ", "WSGI_APPLICATION = 'new_django_project.wsgi.application'"]
-		# @new_parser.parse_file_and_append_some_lines_and_create_file(lookup,arr,'/Users/mzakany/Desktop/settings.py')
-	end
-
-	it 'test system' do 
+	# it 'test system' do 
 		
-	end
+	# end
 end
 
 #
