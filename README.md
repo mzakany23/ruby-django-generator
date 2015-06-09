@@ -7,17 +7,27 @@ Once the project is made there's a command that will take a bootstrap template a
 
 ```ruby
 
-require 'parser'
-require 'django_generator'
+# download a bootstrap template 
+cd ~/Desktop
+https://github.com/IronSummitMedia/startbootstrap-creative.git bootstrap_template
 
-# create django project structure on desktop
-project = DjangoGenerator.new('django_project_title','bootstrap_template_dir_location')
-project.set_up
+# download ruby-django-generator
+git clone https://github.com/mzakany23/ruby-django-generator.git ruby-django-generator
 
-# replace bootstrap index.html page with django tags
-# i.e. save the new index.html file into django_proj/static/templates/layouts/base.html
-parser = HtmlTagParser.new(bootstrap_index_page_location,'where_to_save/index.html')
-parser.replace_index_page_with_django_tags.to_html
+# copy the django file to path
+cp ruby-django-generator/django /bin
+
+# edit the config.rb file locations
+DJANGO_PROJECT_DIR = '/Users/mzakany/Desktop'
+RUBY_DJANGO_GENERATOR_DIR = '/Users/mzakany/Desktop/ruby-django-generator'
+BOOTSTRAP_TEMPLATE_DIR = '/Users/mzakany/Desktop/template'
+BOOTSTRAP_TEMPLATE_INDEX_FILE = "#{BOOTSTRAP_TEMPLATE_DIR}/index.html"
+
+# make django project and combine with bootstrap bootstrap_template
+django g test_project bootstrap_template
+
+# or just make a django project
+django g test_project
 
 
 ```

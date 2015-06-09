@@ -1,12 +1,13 @@
 require 'optparse'
 require 'fileutils'
 require_relative 'parser'
+require_relative '../config'
 
 class DjangoGenerator
 
 	attr_reader :base
 
-	def initialize(project_name, bootstrap_template=nil, location='/Users/mzakany/Desktop')
+	def initialize(project_name, bootstrap_template=nil, location=DJANGO_PROJECT_DIR)
 		scrubbed_project_name = project_name.gsub('-','_')
 		@project_name = scrubbed_project_name
 		@location = location
@@ -21,7 +22,7 @@ class DjangoGenerator
 		end
 		@base = "#{@location}/#{@project_name}/static/templates/layouts"
 		@virtualenv_folder = "#{location}/#{@project_name}"
-		@django_build_directory = "/Users/mzakany/Desktop/ruby-django-generator/files"
+		@django_build_directory = "#{RUBY_DJANGO_GENERATOR_DIR}/files"
 		@full_settings_location = "#{location}/#{@project_name}/#{@project_name}/#{@project_name}"
 		@private_folder = "/private/var/folders/sn/rfwbfk455x9fvl0bldkbj8x40000gn/T/pip_build_mzakany"
 		@static_django_location = "#{@virtualenv_folder}/static/static"
