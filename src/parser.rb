@@ -47,9 +47,13 @@ class HtmlTagParser
 			end
 		end
 
-
-		File.open(where_to_save,'w') do |line|
-			 line.write(output_string)
+		begin
+			file = File.open(where_to_save,'w')
+				 file.write(output_string)
+		rescue
+			p 'file didnt write'
+		ensure
+			file.close unless file == nil
 		end
 	end
 

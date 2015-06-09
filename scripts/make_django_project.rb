@@ -5,6 +5,12 @@ type_of_script = ARGV[0]
 project_name = ARGV[1]
 bootstrap_folder_name = ARGV[2]
 
+if project_name.nil? and bootstrap_folder_name.nil?
+		p "Django Generator Command Line: \n"
+		p "see https://github.com/mzakany23/ruby-django-generator for usage"
+		p 'try this:'
+		p 'django g run_test'
+end
 
 if type_of_script == 'generate' or type_of_script == 'g'
 	unless project_name.nil?

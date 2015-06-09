@@ -118,7 +118,6 @@ class DjangoGenerator
 		arr = ["ROOT_URLCONF = '#{@project_name}.urls' ", "WSGI_APPLICATION = '#{@project_name}.wsgi.application'"]
 
 		django_main_folder = "#{@virtualenv_folder}/#{@project_name}/#{@project_name}"
-		# settings_file = "#{@django_build_directory}/settings.py"
 		django_settings = "#{django_main_folder}/settings.py"
 		requirements_file = "#{@django_build_directory}/requirements.txt"
 		urls_file = "#{@django_build_directory}/urls.py"
@@ -129,11 +128,8 @@ class DjangoGenerator
 		FileUtils.cp(index_html,"#{@virtualenv_folder}/static/templates/home/index.html")
 		parser = HtmlTagParser.new("#{@django_build_directory}/settings.py")
 		parser.parse_file_and_append_some_lines_and_create_file(lookup,arr,"#{django_main_folder}/settings.py")
-		# FileUtils.cp("#{django_main_folder}/settings.py","#{django_main_folder}/settings.py")
 		FileUtils.cp(requirements_file,"#{@virtualenv_folder}")
-		system("sudo cp #{urls_file} #{django_main_folder}/urls.py")
-		# FileUtils.cp(urls_file,"#{@django_main_folder}/urls.py")
-		
+		system("sudo cp #{urls_file} #{django_main_folder}/urls.py")		
 		FileUtils.cp(home_view_file,"#{@virtualenv_folder}/#{@project_name}/home/views.py")
 	end
 
