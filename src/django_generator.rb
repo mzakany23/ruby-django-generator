@@ -68,20 +68,13 @@ class DjangoGenerator
 
 	def copy_over_boostrap_files
 		files = []
-		Dir.foreach(@bootstrap_template_project_dir) do |line|
-			if line == 'img' or line == 'images'
-				FileUtils.cp_r("#{@bootstrap_template_project_dir}/#{line}", "#{@static_django_location}")
-			elsif line == 'js' or line == 'javascripts'
-				FileUtils.cp_r("#{@bootstrap_template_project_dir}/#{line}", "#{@static_django_location}")
-			elsif line == 'css'
-				FileUtils.cp_r("#{@bootstrap_template_project_dir}/#{line}", "#{@static_django_location}")
-			elsif line == 'fonts'
-				FileUtils.cp_r("#{@bootstrap_template_project_dir}/#{line}", "#{@static_django_location}")
-			elsif line == 'index.html'
-				FileUtils.cp("#{@bootstrap_template_project_dir}/#{line}", "#{@virtualenv_folder}/static/templates/layouts/base.html")
-			end
 
-			
+		Dir.foreach(@bootstrap_template_project_dir) do |line|
+			BOOTSTRAP_TAGS_TO_LOOK_FOR.each do |tag|
+				if line == tag
+					FileUtils.cp_r("#{@bootstrap_template_project_dir}/#{line}", "#{@static_django_location}")
+				end
+			end	
 		end
 
 	end

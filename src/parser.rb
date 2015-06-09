@@ -29,7 +29,7 @@ class HtmlTagParser
 		tags_to_look_for = {
 			img: ' <img',
 			css: '<link rel',
-			js: '<script src="js'
+			js: '<script src="js',
 		}
 		return_formatted_string(tags_to_look_for)
 	end
@@ -83,7 +83,6 @@ class HtmlTagParser
 						unless output_string[x].nil?
 
 							whole_line += output_string[x]
-					
 							bracket_count += 1 if output_string[x] == '>'
 
 							if bracket_count != 1
