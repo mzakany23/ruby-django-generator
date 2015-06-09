@@ -4,12 +4,14 @@ This is a project of some scripts that automate making a base django project ins
 
 Once the project is made there's a command that will take a bootstrap template and turn it into the django project that was created.
 
+Its really minimally tested, and only tested with one bootstrap template...but works with that one.
+
 
 ```ruby
 
 # download a bootstrap template 
 cd ~/Desktop
-https://github.com/IronSummitMedia/startbootstrap-creative.git bootstrap_template
+git clone https://github.com/IronSummitMedia/startbootstrap-creative.git bootstrap_template
 
 # download ruby-django-generator
 git clone https://github.com/mzakany23/ruby-django-generator.git ruby-django-generator
