@@ -32,7 +32,7 @@ class DjangoProjectGenerator
 end
 
 
-DjangoProjectGenerator.new("test_project", "template").create
+
 
 
 
