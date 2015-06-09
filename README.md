@@ -17,12 +17,15 @@ git clone https://github.com/IronSummitMedia/startbootstrap-creative.git bootstr
 git clone https://github.com/mzakany23/ruby-django-generator.git ruby-django-generator
 
 # copy the django file to path
-cp ruby-django-generator/django /bin
+mv ruby-django-generator/django /bin
+
+# add permission to file
+chmod 777 /bin/django
 
 # edit the config.rb file locations
-DJANGO_PROJECT_DIR = '/Users/mzakany/Desktop'
-RUBY_DJANGO_GENERATOR_DIR = '/Users/mzakany/Desktop/ruby-django-generator'
-BOOTSTRAP_TEMPLATE_DIR = '/Users/mzakany/Desktop/template'
+DJANGO_PROJECT_DIR = '/Users/your_username/Desktop'
+RUBY_DJANGO_GENERATOR_DIR = '/Users/your_username/Desktop/ruby-django-generator'
+BOOTSTRAP_TEMPLATE_DIR = '/Users/your_username/Desktop/template'
 BOOTSTRAP_TEMPLATE_INDEX_FILE = "#{BOOTSTRAP_TEMPLATE_DIR}/index.html"
 
 # make django project and combine with bootstrap bootstrap_template
